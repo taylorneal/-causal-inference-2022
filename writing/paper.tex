@@ -38,45 +38,35 @@
 \begin{document}
 \maketitle
 
-\section{The First Section}
+\section{Introduction}
 
-This is where I talk about basic \LaTeX. Using the \texttt{parskip} package, I can create a new paragraph by using line breaks, which I will do now.
-
-I can also make cool equations inline by using parentheses{\textemdash}like this: \(x + 2\){\textemdash}or by using single dollar signs{\textemdash}like this: $x+2$. Parentheses are preferred because the left and right delimiter are distinct.
-
-I can make cool equations in a block style by using the \texttt{equation} environment like so:
-\begin{equation*}
-    y = x\beta + \varepsilon
-\end{equation*}
-or by using double dollar signs:
-$$
-    y = x\beta + \varepsilon
-$$
-
-Again, the \texttt{equation} environment is preferred because the begin and end delimiters are different.
-
-I can also add a bibliography, but this is beyond the scope of our discussion right now. Overleaf has plenty of resources for this on their \href{https://www.overleaf.com/learn}{website}. Another good place to look for LaTeX help is the \href{https://en.wikibooks.org/wiki/LaTeX}{WikiBook} on it.
+In this report, we will utilize publicly available NLS data (from the National Longitudinal Survey of Youth 1997) to analyze incarceration rates in the year 2002. This exercise will seek to describe patterns revealed when examining this data across both race and gender. Incarceration status for each individual in the survey is provided on a monthly basis. Our primary variable of interest will be mean number of months spent incarcerated in 2002.
 
 \newpage
 
-\section{The Second Section}
-
-Wherein we do tables and graphs. To include the graph we made in ggplot, we create the \texttt{figure} environment. The `H' option tells LaTeX to `hold' the position of the figure instead of positioning it somewhere else. I use the \texttt{caption} command to add a caption{\textemdash}although I also put a title on the plot in ggplot so you would typically choose one or the other. I use the \texttt{label} command after the caption to add a label. Then in my paper I can use the \texttt{ref} command and LaTeX knows I am referring to Figure \ref{fig:graph}.
+\section{Results and Discussion}
 
 
 \begin{figure}[H]
     \begin{center}
         \includegraphics[width=.85\textwidth]{incarceration_by_racegender}
     \end{center}
-    \caption{Mean Number of Months Incarcerated in 2002 by Race and Gender (this is the LaTeX caption, not the ggplot title)}
+    \caption{Mean Number of Months Incarcerated in 2002 by Race and Gender}
     \label{fig:graph}
 \end{figure}
 
 
-Tables are somewhat easier, since \texttt{kableExtra} and \texttt{stargazer} generate LaTeX code that is ready to just ``copy-paste'' into our document. The \texttt{label} argument in the R code is the label that the table will have in the tex output, if you want to \texttt{ref} it.
+The most striking aspect of the figure above is the relative height of the bar for black men. For individuals included in the survey, mean number of months incarcerated in 2002 was over twice as high for black men compared to the next highest race/gender (Hispanic men). The mean number of months black women spent incarcerated was dramatically lower than their male counterparts. This is generally true for the male/female comparisons in this data (with the exception of Mixed Race Non-Hispanic), but the distinction is greatest in the case of black women and men. An additional point to make is the Mixed Race (Non-Hispanic) bars for men and women both seem inconsistent when compared to the rest of the data. The female bar is significantly larger than the next largest bar for women. And the mean number of months men spent incarcerated shows as zero. This could indicate that mixed race men are incorrectly being coded as women in the data. Alternatively, this observed behavior might be due to under-representation of Mixed Race (Non-Hispanic) individuals in the survey making our observations prone to outlines. Note the table below displays numerical values for the figure on the prior page.
+
 
 \input{../tables/incarceration_by_racegender.tex}
 
+\newpage
+
 \input{../tables/regress_incarceration_by_racegender.tex}
+
+
+The table above displays results of an OLS regression with robust (to heteroskedasticity) standard errors. This simple model finds all statistically significant coefficients at the 0.01 level. This indicates that the differences we have observed between the mean months incarcerated for genders and races in this survey are highly statistically significant. Based on the positive coefficient for Male we find, as expected, that being male increases the expectation of mean months incarcerated. Additionally, being any race other than black decreases the expectation of mean months incarcerated. These regression result serve to increase our confidence in the signifigance of observed patterns plotted earlier in this section.
+
 
 \end{document}
